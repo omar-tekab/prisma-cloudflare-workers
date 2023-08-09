@@ -1,12 +1,14 @@
 {
   "name": "prisma-cf-workers",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "prisma:generate": "PRISMA_CLIENT_ENGINE_TYPE=dataproxy npx prisma generate"
   },
   "license": "ISC",
   "devDependencies": {
     "@cloudflare/workers-types": "3.3.0",
+    
     "@cloudflare/wrangler": "1.19.7",
     "prisma": "^5.2.0-dev.26",
     "ts-loader": "8.3.0",

@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
-import quotes from "./data.json"
-const prisma = new PrismaClient();
+import quotes from "./data.json"  assert { type: "json" };
+const prisma = new PrismaClient(); 
 
 export async function main() {
   console.log("[Elevator Music Cue] 🎸")

@@ -1,21 +1,21 @@
 import { PrismaClient } from "@prisma/client/edge"
-import { Router } from "itty-router"
+import {Hono} from 'hono'
 
-const router = Router()
+const app = new Hono()
 const prisma = new PrismaClient()
 
 const headers = {
   "Content-Type": "application/json"
 }
 
-router.get("/quotes", async () => {
+app.get("/quotes", async () => {
   const results = await prisma.quote.findMany()
   return new Response(JSON.stringify(results, null, 2), {
     headers
   })
 })
 
-router.get("/quotes/:id", async ({ params }) => {
+app.get("/quotes/:id", async ({ params }) => {
   // @ts-ignore
   const { id } = params
 
@@ -30,7 +30,7 @@ router.get("/quotes/:id", async ({ params }) => {
   })
 })
 
-router.post("/quotes", async (request: Request) => {
+app.post("/quotes", async (request: Request) => {
   // @ts-ignore
   const { content, author } = await request.json()
 
@@ -47,8 +47,7 @@ router.post("/quotes", async (request: Request) => {
 })
 
 /** handle 404 results */
-router.all('*', () => new Response('Not Found.', { status: 404 }))
+app.all('*', () => new Response('Not Found.', { status: 404 }))
 
-addEventListener('fetch', event =>
-  event.respondWith(router.handle(event.request))
-)
+export default app;
+
