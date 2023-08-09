@@ -1,0 +1,13 @@
+name = "prisma-cf-workers"
+type = "webpack"
+webpack_config = "webpack.config.js"
+route = ''
+zone_id = ''
+workers_dev = true
+compatibility_date = "2022-01-17"
+main= 'src/index.ts'
+node_compat = true
+
+[vars]
+DATABASE_URL="prisma://aws-eu-central-1.prisma-data.com/?api_key=cRR6kHF5heMp7tB-jT3We6qc_QcGQFDbZyFo2rmKVqlUHV3Q_YuQm_X6Ua15JDx7"
+
