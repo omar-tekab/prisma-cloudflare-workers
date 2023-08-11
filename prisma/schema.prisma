@@ -13,9 +13,24 @@ datasource db {
   directUrl = "postgresql://postgres:7xqX5fAdOHxZfISJ@db.ibytswbvkikjfvbhfcjf.supabase.co:5432/postgres"
 }
 
-model Quote {
-  id        String   @id @default(cuid())
-  content   String
-  author    String
-  createdAt DateTime @default(now())
+model User {
+  password  String?
+  id        String    @id @default(dbgenerated("gen_random_uuid()"))
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+  deletedAt DateTime?
+  firstName String?
+  lastName  String?
+  username  String    @unique
+  isValid   Boolean?
+  roles     String[]
+}
+
+model AppConfig {
+  id        String    @id @default(dbgenerated("gen_random_uuid()"))
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+  deletedAt DateTime?
+  value     String?
+  key       String?   @unique
 }
