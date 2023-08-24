@@ -9,7 +9,7 @@ generator client {
 
 datasource db {
   provider = "postgres"
-  url      = "prisma://aws-eu-central-1.prisma-data.com/?api_key=aOklGKjb0lewPmiXWuxFrvR2BqsWng2paKr6tItQRA4ExICKymBs8eSRl91Wkcwl"
+  url      = "prisma://aws-eu-central-1.prisma-data.com/?api_key=eX1VVxUNepeyokPKEyxhE6FaAHIFp3LLpxW3L-ePq9dPPBkhvOEvhsq5RDv39qLi"
   directUrl = "postgresql://postgres:7xqX5fAdOHxZfISJ@db.ibytswbvkikjfvbhfcjf.supabase.co:5432/postgres"
 }
 

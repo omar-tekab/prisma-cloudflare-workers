@@ -9,5 +9,5 @@ main= 'src/index.ts'
 node_compat = true
 
 [vars]
-DATABASE_URL="prisma://aws-eu-central-1.prisma-data.com/?api_key=aOklGKjb0lewPmiXWuxFrvR2BqsWng2paKr6tItQRA4ExICKymBs8eSRl91Wkcwl"
+DATABASE_URL="prisma://aws-eu-central-1.prisma-data.com/?api_key=eX1VVxUNepeyokPKEyxhE6FaAHIFp3LLpxW3L-ePq9dPPBkhvOEvhsq5RDv39qLi"
 
