@@ -3,8 +3,10 @@ import { InsertResult, UpdateResult } from 'kysely'
 import {User} from './User'
 import {UpdateUser} from './UserUpdateInput'
 import PrismaEdge from "@prisma/client/edge"
+import { withAccelerate } from '@prisma/extension-accelerate'
+
 const { PrismaClient } = PrismaEdge
-const prisma = new PrismaClient()
+const prisma = new PrismaClient().$extends(withAccelerate())
 
 interface getUsersFilter {
   email: string | undefined

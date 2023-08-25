@@ -3,13 +3,13 @@
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["dataproxy", "referentialIntegrity"]
+  previewFeatures = ["clientExtensions"]
 
 }
 
 datasource db {
-  provider = "postgres"
-  url      = "prisma://aws-eu-central-1.prisma-data.com/?api_key=eX1VVxUNepeyokPKEyxhE6FaAHIFp3LLpxW3L-ePq9dPPBkhvOEvhsq5RDv39qLi"
+  provider = "postgresql"
+  url      = "prisma://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiMTEzMTM4ZTgtNGMwNS00ZjY3LWEyM2ItOWIwMmFiNzZmNmUxIiwidGVuYW50X2lkIjoiNWJjYjM3ZWM0NmYyM2M3NDk4MDdkZTcxMzBiYWI0MDdkOWQ0YzI5MTMxOTQ1ODU2MGE3ZTkwMTQ2MjNjZTk4YSIsImludGVybmFsX3NlY3JldCI6ImQzODMxZDE2LWIzODQtNDVhMC04M2VjLTk0MmJlMDVlNjc1YyJ9.9cKqKGKQzrBBt3sValKWZFruLs4_zML0hvdBLNx6otI"
   directUrl = "postgresql://postgres:7xqX5fAdOHxZfISJ@db.ibytswbvkikjfvbhfcjf.supabase.co:5432/postgres"
 }
 

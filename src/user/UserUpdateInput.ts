@@ -1,6 +1,6 @@
 import { z } from '@hono/zod-openapi';
 
-const userUpdateInputSchema = z.object({
+export const userUpdateInputSchema = z.object({
     password: z.optional(z.union([
       z.string(),
       z.null(),

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="SwaggerUI"
+  />
+  <title>SwaggerUI</title>
+  <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@4.5.0/swagger-ui.css" />
+</head>
+<body>
+<div id="swagger-ui"></div>
+<script src="https://unpkg.com/swagger-ui-dist@4.5.0/swagger-ui-bundle.js" crossorigin></script>
+<script>
+  window.onload = () => {
+    const jsonSpec = {
+    "components": {
+        "parameters": {},
+        "schemas": {}
+    },
+    "info": {
+        "title": "My API",
+        "version": "1.0.0"
+    },
+    "openapi": "3.0.0",
+    "paths": {
+        "/users/{id}": {
+            "patch": {
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "example": {
+                                    "createdAt": "2023-08-24T10:00:00Z",
+                                    "deletedAt": "2023-08-24T12:00:00Z",
+                                    "firstName": "John",
+                                    "id": "ffffffffffffffff",
+                                    "isValid": true,
+                                    "lastName": "Doe",
+                                    "password": null,
+                                    "roles": "['admin', 'user']",
+                                    "updatedAt": "2023-08-24T11:30:00Z",
+                                    "username": "johndoe"
+                                },
+                                "properties": {
+                                    "createdAt": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "string"
+                                            }
+                                        ]
+                                    },
+                                    "deletedAt": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "nullable": true
+                                            },
+                                            {
+                                                "nullable": true
+                                            }
+                                        ]
+                                    },
+                                    "firstName": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "nullable": true
+                                            },
+                                            {
+                                                "nullable": true
+                                            }
+                                        ]
+                                    },
+                                    "id": {
+                                        "type": "string"
+                                    },
+                                    "isValid": {
+                                        "anyOf": [
+                                            {
+                                                "type": "boolean"
+                                            },
+                                            {
+                                                "nullable": true
+                                            },
+                                            {
+                                                "nullable": true
+                                            }
+                                        ]
+                                    },
+                                    "lastName": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "nullable": true
+                                            },
+                                            {
+                                                "nullable": true
+                                            }
+                                        ]
+                                    },
+                                    "password": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "nullable": true
+                                            },
+                                            {
+                                                "nullable": true
+                                            }
+                                        ]
+                                    },
+                                    "roles": {
+                                        "type": "string"
+                                    },
+                                    "updatedAt": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "nullable": true
+                                            },
+                                            {
+                                                "nullable": true
+                                            }
+                                        ]
+                                    },
+                                    "username": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "createdAt": "2023-08-24T10:00:00Z",
+                                        "deletedAt": "2023-08-24T12:00:00Z",
+                                        "firstName": "John",
+                                        "id": "ffffffffffffffff",
+                                        "isValid": true,
+                                        "lastName": "Doe",
+                                        "password": null,
+                                        "roles": "['admin', 'user']",
+                                        "updatedAt": "2023-08-24T11:30:00Z",
+                                        "username": "johndoe"
+                                    },
+                                    "properties": {
+                                        "createdAt": {
+                                            "anyOf": [
+                                                {
+                                                    "type": "string"
+                                                },
+                                                {
+                                                    "type": "string"
+                                                }
+                                            ]
+                                        },
+                                        "deletedAt": {
+                                            "anyOf": [
+                                                {
+                                                    "type": "string"
+                                                },
+                                                {
+                                                    "type": "string"
+                                                },
+                                                {
+                                                    "nullable": true
+                                                },
+                                                {
+                                                    "nullable": true
+                                                }
+                                            ]
+                                        },
+                                        "firstName": {
+                                            "anyOf": [
+                                                {
+                                                    "type": "string"
+                                                },
+                                                {
+                                                    "nullable": true
+                                                },
+                                                {
+                                                    "nullable": true
+                                                }
+                                            ]
+                                        },
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "isValid": {
+                                            "anyOf": [
+                                                {
+                                                    "type": "boolean"
+                                                },
+                                                {
+                                                    "nullable": true
+                                                },
+                                                {
+                                                    "nullable": true
+                                                }
+                                            ]
+                                        },
+                                        "lastName": {
+                                            "anyOf": [
+                                                {
+                                                    "type": "string"
+                                                },
+                                                {
+                                                    "nullable": true
+                                                },
+                                                {
+                                                    "nullable": true
+                                                }
+                                            ]
+                                        },
+                                        "password": {
+                                            "anyOf": [
+                                                {
+                                                    "type": "string"
+                                                },
+                                                {
+                                                    "nullable": true
+                                                },
+                                                {
+                                                    "nullable": true
+                                                }
+                                            ]
+                                        },
+                                        "roles": {
+                                            "type": "string"
+                                        },
+                                        "updatedAt": {
+                                            "anyOf": [
+                                                {
+                                                    "type": "string"
+                                                },
+                                                {
+                                                    "type": "string"
+                                                },
+                                                {
+                                                    "nullable": true
+                                                },
+                                                {
+                                                    "nullable": true
+                                                }
+                                            ]
+                                        },
+                                        "username": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "description": "Retrieve the user"
+                    }
+                }
+            }
+        }
+    }
+}
+    window.ui = SwaggerUIBundle({
+        spec: jsonSpec,
+      dom_id: '#swagger-ui',
+    });
+  };
+</script>
+</body>
+</html>

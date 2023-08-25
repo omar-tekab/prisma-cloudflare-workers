@@ -1,8 +1,11 @@
 
 import { PrismaClient } from "@prisma/client/edge";
 import fs from 'fs'
-const prisma = new PrismaClient();
 
+import { withAccelerate } from '@prisma/extension-accelerate'
+
+
+const prisma = new PrismaClient().$extends(withAccelerate())
 export let userList = (JSON.parse(fs.readFileSync('/workspace/prisma-cloudflare-workers/prisma/seed-generated-output/data/User/User.json', 'utf-8')))["User"]
 
 export const addUserSeedData = async() => {

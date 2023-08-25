@@ -1,12 +1,7 @@
 import { z } from '@hono/zod-openapi'
 
 const UserWhereUniqueInputSchema = z.object({
-    id: z.string().optional().openapi({
-        param: {
-          name: 'id',
-          in: 'path',
-        }
-          })
+    id: z.string().optional()
 
 });
   
@@ -16,4 +11,4 @@ const UserWhereUniqueInputSchema = z.object({
       id: 'example_id'
   }});
 
-export {UserWhereUniqueInputSchema as UserWhereUniqueInput }
+export {openAPISchema as UserWhereUniqueInput }
