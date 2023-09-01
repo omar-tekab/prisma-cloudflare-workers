@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from '@hono/zod-openapi';
 
 const sortEnum = z.enum(['asc', 'desc']);
 
@@ -15,7 +15,7 @@ const userOrderByInputSchema = z.object({
   roles: sortEnum.optional(),
 });
 
-const openApiExample = userOrderByInputSchema.openapi({
+const UserOrderByInput = userOrderByInputSchema.openapi({
   example: {
     password: 'asc',
     id: 'desc',
@@ -29,4 +29,5 @@ const openApiExample = userOrderByInputSchema.openapi({
     roles: 'asc',
   },
 });
-export {openApiExample as userOrderByInput}
+
+export { UserOrderByInput };

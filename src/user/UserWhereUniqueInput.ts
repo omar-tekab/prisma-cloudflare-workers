@@ -1,14 +1,16 @@
-import { z } from '@hono/zod-openapi'
+import { z } from '@hono/zod-openapi';
 
+// Define the UserWhereUniqueInputSchema using Zod
 const UserWhereUniqueInputSchema = z.object({
-    id: z.string().optional()
-
+  id: z.string().optional(),
 });
-  
-  // Generate OpenAPI schema with examples
-  const openAPISchema = UserWhereUniqueInputSchema.openapi({
-    example: {
-      id: 'example_id'
-  }});
 
-export {openAPISchema as UserWhereUniqueInput }
+// Generate an OpenAPI schema with an example
+const openAPISchema = UserWhereUniqueInputSchema.openapi({
+  example: {
+    id: 'example_id',
+  },
+});
+
+// Export the OpenAPI schema with a more descriptive name
+export { openAPISchema as UserWhereUniqueInput };

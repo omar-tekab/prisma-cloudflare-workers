@@ -3,7 +3,7 @@ import { createRoute } from '@hono/zod-openapi'
 import { OpenAPIHono } from '@hono/zod-openapi'
 import { prettyJSON } from 'hono/pretty-json'
 import {routeUpdateUser} from './user/user.contoller'
-import {updateUser} from './user/user.contoller'
+import {update} from './user/user.contoller'
 import { html } from 'hono/html'
 
 const ParamsSchema = z.object({

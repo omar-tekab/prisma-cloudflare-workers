@@ -1,110 +1,84 @@
-import httpStatus from 'http-status'
-import { InsertResult, UpdateResult } from 'kysely'
-import {User} from './User'
-import {UpdateUser} from './UserUpdateInput'
-import PrismaEdge , {Prisma} from "@prisma/client/edge"
-import { withAccelerate } from '@prisma/extension-accelerate'
-import { transformStringFieldUpdateInput } from "../prisma.util";
-import {PasswordService } from "../password.service"
-import { PaginatedInterface } from "../util/PaginatedInterface";
+import httpStatus from 'http-status';
+import { Prisma, PrismaClient,User } from '@prisma/client/edge';
+import { PasswordService } from '../password.service';
+import { PaginatedInterface } from '../util/PaginatedInterface';
 
+// Initialize Prisma Client
+const prisma = new PrismaClient();
 
-const { PrismaClient } = PrismaEdge
-const prisma = new PrismaClient().$extends(withAccelerate())
+// Create an instance of PasswordService
+const passwordService = new PasswordService(8);
 
-const PasswordServiceClass = new PasswordService(8)
-interface getUsersFilter {
-  email: string | undefined
+// Define interfaces for filter and options
+interface findManyFilter {
+  email: string | undefined;
 }
 
-interface getUsersOptions {
-  sortBy: string
-  limit: number
-  page: number
+interface findManyOptions {
+  sortBy: string;
+  limit: number;
+  page: number;
 }
 
-
-
+// Function to find multiple users with pagination
 export const findMany = async (
   args: Prisma.UserFindManyArgs
 ): Promise<PaginatedInterface<User>> => {
-  console.log(args,"argsargs")
-  const [data, totalCount] = await Promise.all([
-    prisma.user.findMany(args),
-    prisma.user.count({ where: { deletedAt: null } }),
-  ]);
-  console.log(data,"rrrrrrrrrrr")
-  return { paginatedResult: data, totalCount };
+  try {
+    const [data, totalCount] = await Promise.all([
+      prisma.user.findMany(args),
+      prisma.user.count({ where: { deletedAt: null } }),
+    ]);
+    return { paginatedResult: data, totalCount };
+  } catch (error:any) {
+    throw new Error(`Error finding users: ${error.message}`);
+  }
 };
 
-
+// Function to get a user by username (email)
 export const getUserByEmail = async (
-    username: string,
-): Promise<any | undefined> => {
-    try {
-      const user = await prisma.user.findUnique({
-        where: { username },
-      });
-      return user;
-    } catch (error : any) {
-      throw new Error(`Error fetching user by email: ${error.message}`);
-    }
+  username: string
+): Promise<User | null> => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { username },
+    });
+    return user;
+  } catch (error:any) {
+    throw new Error(`Error fetching user by email: ${error.message}`);
   }
+};
 
-  // export const updateUserById = async (
-  //   userId: string|undefined,
-  //   updateBody: UpdateUser
-  // ): Promise<User> => {
-  //   try {
-  //     const updatedUser = await prisma.user.update({
-  //       where: { id: userId },
-  //       data: updateBody,
-  //     });
-  
-  //     if (!updatedUser) {
-  //       throw new Error( 'User not found');
-  //     }
-  
-  //     return updatedUser;
-  //   } catch (error) {
-  //     console.log(error)
-  //     throw new Error( 'Internal server error',);
-  //   }
-  // };
+// Function to update a user by ID
+export const update = async (
+  args: Prisma.UserUpdateArgs
+): Promise<User> => {
+  try {
+    // Hash the password if it is provided in the update data
+    if (args.data.password) {
+      args.data.password = await passwordService.hash(args.data.password);
+    }
 
-  export const updateUserById = async (
-    args: Prisma.UserUpdateArgs
-  )=> {
-        return await prisma.user.update({
-          ...args,
-    
-          data: {
-            ...args.data,
-    
-            password: args.data.password
-              ? args.data.password &&
-                (await transformStringFieldUpdateInput(
-                  args.data.password!,
-                  (password) => PasswordServiceClass.hash(password)
-                ))
-              : undefined,
-          },
-        });
-      }
-    
-      export const createUser = async (
-        args: Prisma.UserCreateArgs
-      ) => {
-        return await prisma.user.create({
-          ...args,
-      
-          data: {
-            ...args.data,
-      
-            password: args.data.password
-              ? await PasswordServiceClass.hash(args.data.password!)
-              : undefined,
-          },
-        });
-      };
-      
+    const updatedUser = await prisma.user.update(args);
+    return updatedUser;
+  } catch (error:any) {
+    throw new Error(`Error updating user: ${error.message}`);
+  }
+};
+
+// Function to create a new user
+export const create = async (
+  args: Prisma.UserCreateArgs
+): Promise<User> => {
+  try {
+    // Hash the password before creating the user
+    if (args.data.password) {
+      args.data.password = await passwordService.hash(args.data.password);
+    }
+
+    const newUser = await prisma.user.create(args);
+    return newUser;
+  } catch (error:any) {
+    throw new Error(`Error creating user: ${error.message}`);
+  }
+};

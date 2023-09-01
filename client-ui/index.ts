@@ -227,7 +227,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @name GetUsers
      * @request GET:/users/:id
      */
-    getUsers: (id: string, params: RequestParams = {}) =>
+    findMany: (id: string, params: RequestParams = {}) =>
       this.request<
         {
           id?: string;

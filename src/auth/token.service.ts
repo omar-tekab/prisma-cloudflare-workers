@@ -26,16 +26,16 @@ export const generateToken = async (
 }
 
 export const generateAuthTokens = async (any: Selectable<any>) => {
-  const accessTokenExpires = dayjs().add(15, 'minutes')
+  const accessTokenExpires = dayjs().add(15, 'days')
   const accessToken = await generateToken(
     any.id,
     tokenTypes.ACCESS,
-    any.role,
+    any.roles,
     accessTokenExpires,
     "omar",
     any.is_email_verified
   )
-  const refreshTokenExpires = dayjs().add(15, 'days')
+  const refreshTokenExpires = dayjs().add(30, 'days')
   const refreshToken = await generateToken(
     any.id,
     tokenTypes.REFRESH,

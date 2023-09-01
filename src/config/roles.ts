@@ -1,6 +1,6 @@
 export const roleRights = {
   user: [],
-  admin: ['getUsers', 'manageUsers']
+  admin: ['findMany', 'manageUsers']
 } as const
 
 export const roles = Object.keys(roleRights) as Role[]

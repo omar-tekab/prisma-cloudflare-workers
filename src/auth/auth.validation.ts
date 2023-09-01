@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from '@hono/zod-openapi'
 // import { password } from './custom.refine.validation'
 // import { hashPassword } from './custom.transform.validation'
 // import { roleZodType } from './custom.type.validation'
@@ -19,6 +19,13 @@ export const login = z.object({
   password: z.string()
 })
 
+const openApiExample = login.openapi({
+  example: {
+    password: 'test',
+    email:"test@gmail.com"
+  },
+});
+export {openApiExample as userlogin}
 // export const refreshTokens = z.object({
 //   refresh_token: z.string()
 // })
