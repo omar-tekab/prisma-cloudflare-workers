@@ -1,11 +1,9 @@
 
-import { PrismaClient } from "@prisma/client/edge";
+import PrismaEdge from "@prisma/client/edge"
+const { PrismaClient } = PrismaEdge
+
 import fs from 'fs'
-
-import { withAccelerate } from '@prisma/extension-accelerate'
-
-
-const prisma = new PrismaClient().$extends(withAccelerate())
+const prisma = new PrismaClient();
 
 export let appConfigList = (JSON.parse(fs.readFileSync('/workspace/prisma-cloudflare-workers/prisma/seed-generated-output/data/AppConfig/AppConfig.json', 'utf-8')))["AppConfig"]
 

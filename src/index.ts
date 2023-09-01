@@ -2,8 +2,8 @@ import { z } from '@hono/zod-openapi'
 import { createRoute } from '@hono/zod-openapi'
 import { OpenAPIHono } from '@hono/zod-openapi'
 import { prettyJSON } from 'hono/pretty-json'
-import {routeUpdateUser} from './user/user.contoller'
-import {updateUser} from './user/user.contoller'
+import {routeUpdateUser,routeCreateUser,routeFindManyUser} from './user/user.contoller'
+import {updateUser,createUser,getUsers} from './user/user.contoller'
 import { html } from 'hono/html'
 import { cors } from 'hono/cors'
 
@@ -24,6 +24,8 @@ import { cors } from 'hono/cors'
       app.use('*', cors())
 
       app.openapi(routeUpdateUser,updateUser)
+      app.openapi(routeCreateUser,createUser)
+      app.openapi(routeFindManyUser,getUsers)
       app.use('/doc/*', prettyJSON())
 
       app.get('/swagger', (c) => {

@@ -9,7 +9,7 @@ CREATE TABLE "User" (
     "lastName" TEXT,
     "username" TEXT NOT NULL,
     "isValid" BOOLEAN,
-    "roles" TEXT NOT NULL,
+    "roles" TEXT[],
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );

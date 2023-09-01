@@ -1,0 +1,14 @@
+{
+    "admin": {
+        "permissions": [
+            "createAnyAppConfig",
+            "readAnyAppConfig",
+            "updateAnyAppConfig",
+            "deleteAnyAppConfig",
+            "createAnyUser",
+            "readAnyUser",
+            "updateAnyUser",
+            "deleteAnyUser"
+        ]
+    }
+}

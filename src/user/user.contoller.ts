@@ -10,28 +10,111 @@ const { PrismaClient } = PrismaEdge
 const prisma = new PrismaClient()
 // import { getConfig } from '../config/config'
 import * as userService from './user.service'
+import * as abacUtil from "../auth/abac.util";
 
 import {UserUpdateInput} from './UserUpdateInput'
+import {UserCreateInput} from './UserCreateInput'
 import {userUpdateInputSchema} from './UserUpdateInput'
 import {UpdateUser} from './UserUpdateInput'
 import {UserWhereUniqueInput} from './UserWhereUniqueInput'
+import {UserFindManyArgs} from './UserFindManyArgs'
+import {GetListUserDto} from './getListUser.dto'
+import {processArgs} from '../util/ProcessArgs'
+import {checkPermission} from '../util/checkPermission'
 
-// export const createUser: Handler<Environment> = async (c) => {
-//   const bodyParse = await c.req.json()
-//   const body = await userValidation.createUser.parseAsync(bodyParse)
-//   const user = await userService.createUser(body, config.database)
-//   return c.json(user, httpStatus.CREATED as StatusCode)
-// }
+// create user
+export const createUser: any = async (c: any) => {
+  const permission=checkPermission("admin","createAnyUserhhhhhhh")
+  if(!permission){
+    return c.json(
+      {
+        code: 403,
+        message: 'Validation Error',
+      },
+      403
+    )
+  }
+  const bodyParse = await c.req.json();
+  const body = UserCreateInput.parse(bodyParse);
 
-// export const getUsers: Handler<Environment> = async (c) => {
-//   const config = getConfig(c.env)
-//   const queryParse = c.req.query()
-//   const query = userValidation.getUsers.parse(queryParse)
-//   const filter = { email: query.email }
-//   const options = { sortBy: query.sort_by, limit: query.limit, page: query.page }
-//   const result = await userService.queryUsers(filter, options, config.database)
-//   return c.json(result, httpStatus.OK as StatusCode)
-// }
+  // If permission check passes, create the user
+  const user = await userService.createUser({ data: body });
+  return c.json(user, 200 as StatusCode);
+};
+
+export const routeCreateUser = createRoute({
+  method: 'post',
+  path: '/user',
+  request: {
+    body:{
+      content:{
+        'application/json': {
+          schema: UserCreateInput,
+        },
+      },
+    },
+  },
+  responses: {
+    200: {
+      content: {
+        'application/json': {
+          schema: UserCreateInput,
+        },
+      },
+      description: 'Create the ussssssser',
+    },
+
+  },
+})
+
+
+
+// find many users
+export const getUsers= async (c:any) => {
+  const queryParse = c.req.query()
+  console.log(JSON.stringify(queryParse),"queryParse")
+  const args = UserFindManyArgs.parse(processArgs(queryParse))
+  console.log(JSON.stringify(args.skip),"zzzzzzzzzzzzzzzzzzzzzzzzz")
+
+  const result = await userService.findMany({
+    where:args?.where?args.where.where:undefined,
+    orderBy:args?.orderBy?args.orderBy.orderBy:undefined,
+    skip:args.skip ? parseInt(args.skip) : undefined,
+    take:args.take ? parseInt(args.take) : undefined,
+    select: {
+      id: true,
+      createdAt: true,
+      updatedAt: true,
+      deletedAt: true,
+      firstName: true,
+      lastName: true,
+      username: true,
+      isValid: true,
+      roles: true,
+    },
+  });
+  return c.json({ paginatedResult: result.paginatedResult, totalCount: result.totalCount }, 200 as StatusCode)
+
+
+}
+
+export const routeFindManyUser = createRoute({
+  method: 'get',
+  path: '/users',
+  request: {
+    query:UserFindManyArgs
+  },
+  responses: {
+    200: {
+      content: {
+        'application/json': {
+          schema: GetListUserDto,
+        },
+      },
+      description: 'Create the user',
+    },
+  },
+})
 
 // export const getUser: Handler<Environment> = async (c) => {
 //   const config = getConfig(c.env)
@@ -44,7 +127,7 @@ import {UserWhereUniqueInput} from './UserWhereUniqueInput'
 //   return c.json(user, httpStatus.OK as StatusCode)
 // }
 
-export const updateUser: Handler<any> = async (c:any) => {
+export const updateUser: any = async (c:any) => {
   // const config = getConfig(c.env)
   const paramsParse = c.req.param()
   console.log(paramsParse,"paramsParse")
@@ -54,7 +137,8 @@ export const updateUser: Handler<any> = async (c:any) => {
   console.log(params,'rrrrrrrrrrrr')
   const body = UserUpdateInput.parse(bodyParse)
   console.log(body,"eeeeeeeeeeeeeeee")
-  const user = await userService.updateUserById(params.id, body)
+  const user = await userService.updateUserById({
+    where:{id:params.id}, data:body})
   return c.json(user, 200 as StatusCode)
 }
 export const routeUpdateUser = createRoute({

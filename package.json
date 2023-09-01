@@ -2,7 +2,9 @@
   "name": "prisma-cf-workers",
   "version": "1.0.0",
   "scripts": {
-    "prisma:generate": "PRISMA_CLIENT_ENGINE_TYPE=dataproxy npx prisma generate"
+    "prisma:generate": "npx prisma generate --accelerate",
+    "db:migrate-save": "prisma migrate dev",
+    "seed:push": "ts-node prisma/seed-generated-output/seed"
   },
   "license": "ISC",
   "devDependencies": {
@@ -28,6 +30,10 @@
     "@prisma/client": "^5.2.0",
     "@prisma/extension-accelerate": "^0.6.0",
     "@tsndr/cloudflare-worker-jwt": "^2.2.1",
+    "@types/bcrypt": "^5.0.0",
+    "accesscontrol": "^2.2.1",
+    "aws-sdk": "^2.1446.0",
+    "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "camel-case": "^4.1.2",
     "dayjs": "^1.11.9",
@@ -35,6 +41,8 @@
     "http-status": "^1.6.2",
     "itty-router": "2.4.8",
     "kysely-planetscale": "^1.4.0",
+    "mock-aws-s3": "^4.0.2",
+    "nock": "^13.3.3",
     "shelljs": "^0.8.5",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-dist": "^5.4.2",

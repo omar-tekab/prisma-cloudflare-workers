@@ -1,11 +1,11 @@
 import { z } from '@hono/zod-openapi';
 
-export const userSchema = z.object({
+export const userCreateInputSchema = z.object({
     password: z.optional(z.union([
       z.string(),
       z.null(),
     ])),
-    id: z.string(),
+    id: z.string().optional(),
     createdAt: z.optional(z.union([
       z.date(),
       z.string(),
@@ -33,10 +33,10 @@ export const userSchema = z.object({
       z.boolean(),
       z.null(),
     ])),
-    roles: z.string(),
+    roles: z.array(z.string()),
   });
 
-  const openApiExample = userSchema.openapi({
+  const openApiExample = userCreateInputSchema.openapi({
     example: {
       id: 'ffffffffffffffff',
       deletedAt: '2023-08-24T12:00:00Z',
@@ -47,10 +47,10 @@ export const userSchema = z.object({
       username: 'johndoe',
       password: null,
       isValid: true,
-      roles: "['admin', 'user']"
+      roles: ['admin', 'user']
     }
   });
- export type User =
-  | z.infer<typeof openApiExample>
+ export type CreateUser =
+  | z.infer<typeof userCreateInputSchema>
 
-export { openApiExample as User};
+export { openApiExample as UserCreateInput };
